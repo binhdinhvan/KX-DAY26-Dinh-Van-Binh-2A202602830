@@ -38,6 +38,23 @@ day26-mcp/
 
 ## Quick start
 
+### Kết quả thực hành và minh chứng
+
+Đã đối chiếu các phần 01–04 ngày 14/10/2026. Danh sách minh chứng và cách chạy lại nằm trong [screenshots/README.md](screenshots/README.md).
+
+| Phần | Kết quả | Minh chứng |
+|---|---|---|
+| 01 — Function Calling | Gemini yêu cầu gọi tool cho Hà Nội và Đà Nẵng, app thực thi và model tổng hợp | [Ảnh terminal](screenshots/01-function-calling.png) |
+| 02 — MCP Basics | Khám phá tool và gọi thời tiết Hanoi, Danang, Haiphong | [Ảnh terminal](screenshots/02-mcp-basics.png) |
+| 03a — Authentication | Token hợp lệ gọi được tool; token sai bị từ chối HTTP 401 | [Thành công](screenshots/03a-auth-ok.png), [bị từ chối](screenshots/03a-auth-fail.png) |
+| 03b — Tool Registry | Tìm theo tag, chọn `get_weather_v2` v2.0.0 và gọi thành công; tìm theo keyword | [Ảnh terminal](screenshots/03b-registry.png) |
+| 03c — Versioning | Đọc metadata, liệt kê tool, gọi thành công cả v1 và v2 có forecast | [Ảnh terminal](screenshots/03c-versioning.png) |
+| 04 — ADK + WeatherAPI | Kiểm tra setup đạt; agent gọi MCP và trả thời tiết hiện tại, dự báo 3 ngày | [Setup](screenshots/04-verify-setup.png), [thời tiết](screenshots/04-adk-current.png), [dự báo](screenshots/04-adk-forecast.png) |
+
+Phần 01–03 sử dụng dữ liệu thời tiết giả lập; phần 04 gọi WeatherAPI. MCP chạy ở cổng 8085; ADK đã được kiểm tra ở cổng 8001 và sau đó ở cổng 8000 khi dừng server Auth. Chưa triển khai Cloud Run. Các yêu cầu minh chứng phần 03 và ADK đã đối chiếu đầy đủ với ảnh trong repo.
+
+### Chạy các ví dụ
+
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt

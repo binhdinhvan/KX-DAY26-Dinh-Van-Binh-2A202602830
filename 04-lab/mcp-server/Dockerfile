@@ -6,12 +6,10 @@ WORKDIR /app
 
 # Copy dependency files
 COPY pyproject.toml ./
+COPY weather.py ./
 
 # Install dependencies
-RUN pip install --no-cache-dir -e .
-
-# Copy application code
-COPY weather.py ./
+RUN pip install --no-cache-dir .
 
 # Expose port (Cloud Run will override this)
 EXPOSE 8080
