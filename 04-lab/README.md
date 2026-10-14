@@ -1,6 +1,8 @@
-# Lab 04 — Weather Agent with Remote MCP Server
+# Lab 04 — Weather Agent with Local HTTP MCP Server
 
 A weather agent built with Google ADK that connects to an MCP server via Streamable HTTP transport.
+
+Phạm vi bài nộp: MCP server và ADK chạy local, lấy dữ liệu thật từ WeatherAPI. Không thực hiện bonus deploy Cloud Run. Dockerfile là cấu hình tham khảo, chưa được kiểm tra build/deploy.
 
 ## Architecture
 
@@ -58,6 +60,7 @@ uv sync
 
 # Set your WeatherAPI key (get one free at https://weatherapi.com)
 export WEATHERAPI_KEY="your_weatherapi_key"
+export PORT=8085
 
 # Start the server (runs on port 8085 by default)
 uv run python weather.py
@@ -71,14 +74,19 @@ The server will be available at `http://localhost:8085/mcp`.
 cd mcp-client
 uv sync
 
-# Create .env file with your Gemini API key
-echo "GOOGLE_API_KEY=your_gemini_api_key" > .env
+# Create .env in an editor, save as UTF-8:
+# GOOGLE_API_KEY=your_gemini_api_key
+# MCP_SERVER_URL=http://localhost:8085/mcp
+
+uv run python verify_setup.py
 
 # Start ADK web interface
 uv run adk web
 ```
 
 Open http://localhost:8000 in your browser, select `weather_agent`, and ask about the weather.
+
+Dừng server Auth của phần 03 trước khi dùng cổng 8000. Có thể dùng `uv run adk web --port 8001` nếu cổng 8000 đang bận. Trên PowerShell, đặt biến bằng `$env:WEATHERAPI_KEY="..."` và `$env:PORT="8085"`; tạo `.env` bằng trình soạn thảo, không dùng `echo ... > .env` để tránh lỗi encoding. Xem [hướng dẫn Windows và minh chứng](../screenshots/README.md).
 
 ## Configuration
 
@@ -87,4 +95,4 @@ Open http://localhost:8000 in your browser, select `weather_agent`, and ask abou
 | `WEATHERAPI_KEY` | mcp-server | API key from weatherapi.com |
 | `GOOGLE_API_KEY` | mcp-client/.env | Gemini API key |
 | `PORT` | mcp-server (env) | Override server port (default: 8085) |
-| `MCP_SERVER_URL` | mcp-client/.env | MCP endpoint the agent connects to (default: `http://localhost:8085/mcp`; set to your Cloud Run URL + `/mcp` when deployed) |
+| `MCP_SERVER_URL` | mcp-client/.env | Local MCP endpoint: `http://localhost:8085/mcp` |

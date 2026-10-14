@@ -63,4 +63,4 @@ cd 04-lab/mcp-client
 .\.venv\Scripts\adk.exe web --port 8001
 ```
 
-Mở `http://localhost:8001`, chọn `weather_agent`, hỏi thời tiết hiện tại và dự báo 3 ngày cho Hà Nội. Forecast của API trong lần chạy gồm hôm nay và hai ngày tiếp theo. Cloud Run chưa được triển khai.
+Mở `http://localhost:8001`, chọn `weather_agent`, hỏi thời tiết hiện tại và dự báo 3 ngày cho Hà Nội. Có thể dùng cổng mặc định 8000 sau khi dừng server Auth, như ảnh thời tiết hiện tại. Forecast của API trong lần chạy gồm hôm nay và hai ngày tiếp theo. **Không thực hiện bonus deploy Cloud Run; bài nộp không có ảnh cloud.**

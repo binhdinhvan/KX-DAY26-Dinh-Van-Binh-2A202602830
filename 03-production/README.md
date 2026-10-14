@@ -2,6 +2,8 @@
 
 `02-mcp-basics` chạy tốt trên máy cá nhân. Đưa vào production cần giải quyết thêm 3 vấn đề:
 
+Thư mục này gồm ba demo chạy local để minh họa các vấn đề đó; chưa phải hệ thống production được triển khai trên cloud.
+
 | Vấn đề | Demo | Production |
 |---|---|---|
 | **Auth** | stdio, cùng máy, ai cũng gọi | HTTP + Bearer token / OAuth |
@@ -53,6 +55,16 @@ Client                                Server
 - Thiếu token → `401`
 - Token sai → bị từ chối; lần kiểm tra với SDK đang cài trả `401`
 - Logic tool không biết gì về auth — SDK xử lý ở tầng transport
+
+Kiểm tra token sai trên PowerShell, trong terminal client:
+
+```powershell
+$env:MCP_AUTH_TOKEN="wrong-token"
+python auth_client.py
+Remove-Item Env:MCP_AUTH_TOKEN
+```
+
+Client báo lỗi và server từ chối request. Sau khi chụp ảnh thành công/thất bại, nhấn Ctrl+C ở terminal server để giải phóng cổng 8000 cho ADK.
 
 ---
 
@@ -164,4 +176,4 @@ versioned_client.py                     versioned_server.py
        │── call_tool("get_weather_v2") ───────▶ │  ← v2 đầy đủ tính năng
 ```
 
-Client thông minh đọc `server://info` để biết tool nào deprecated, tự chọn dùng v2 nếu có, fallback v1 nếu không.
+Demo `versioned_client.py` đọc `server://info` rồi gọi cả v1 và v2 để so sánh. Việc tự chọn v2 hoặc fallback v1 là hướng mở rộng, chưa được triển khai trong client này.

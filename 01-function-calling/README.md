@@ -200,6 +200,6 @@ while resp.function_calls:
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**MCP giải quyết tất cả các vấn đề trên** → xem [02-mcp-basics/](../02-mcp-basics/)
+**MCP giúp tách và tái sử dụng tool qua giao thức chung; phía tích hợp LLM vẫn cần chuyển schema sang định dạng của model** → xem [02-mcp-basics/](../02-mcp-basics/)
 
 Bước tiếp theo: [02-mcp-basics/](../02-mcp-basics/) — tách tool ra MCP server độc lập.

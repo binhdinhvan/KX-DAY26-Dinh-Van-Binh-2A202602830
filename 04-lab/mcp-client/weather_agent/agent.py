@@ -1,6 +1,6 @@
 """
-Weather Agent - Connects to Remote MCP Server on Cloud Run
-Successfully connects to custom MCP HTTP endpoints!
+Weather Agent - Uses a local MCP server over Streamable HTTP.
+Tool discovery and calls establish the connection at runtime.
 """
 from google.adk import Agent
 from google.adk.tools.mcp_tool.mcp_toolset import McpToolset, StreamableHTTPConnectionParams
@@ -11,8 +11,7 @@ import os
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Mặc định: server chạy local. Deploy lên Cloud Run thì đặt MCP_SERVER_URL trong .env
-# (ví dụ: https://<service>.run.app/mcp). verify_setup.py đọc cùng biến này.
+# Server chạy local; verify_setup.py đọc cùng biến MCP_SERVER_URL.
 MCP_SERVER_URL = os.getenv("MCP_SERVER_URL", "http://localhost:8085/mcp")
 
 logger.info(f"🌐 Initializing weather agent with remote MCP server")
@@ -22,7 +21,7 @@ try:
     # Create connection parameters for the remote MCP server
     connection_params = StreamableHTTPConnectionParams(
         url=MCP_SERVER_URL,
-        timeout=30.0,  # Increased timeout for Cloud Run cold starts
+        timeout=30.0,  # Timeout for MCP requests
     )
     
     # Create the MCP toolset - this will connect to the remote server
@@ -42,7 +41,7 @@ try:
     logger.info("   - get_current_weather(city)")
     logger.info("   - get_forecast(city, days)")
     logger.info("   - health_check()")
-    logger.info("🎉 Remote MCP connection successful!")
+    logger.info("MCP toolset configured; connection is verified when tools are discovered or called.")
     
 except Exception as e:
     logger.error(f"❌ Failed to connect to remote MCP server: {e}")

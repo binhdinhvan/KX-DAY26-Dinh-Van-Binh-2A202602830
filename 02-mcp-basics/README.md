@@ -14,6 +14,8 @@ weather_client.py                       weather_server.py
 
 ## Cách chạy (không cần API key)
 
+Demo dùng dữ liệu thời tiết giả lập. Client khám phá schema bằng `list_tools()`, sau đó gọi tool có tên `get_weather` và ba thành phố được viết sẵn trong code; chưa có LLM tự chọn tool ở bước này.
+
 ```bash
 pip install -r ../requirements.txt
 python weather_client.py     # client tự khởi động weather_server.py

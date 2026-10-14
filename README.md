@@ -29,7 +29,7 @@ day26-mcp/
 │
 └── 04-lab/                  ← Bước 4: Agent Google ADK + MCP server thật (WeatherAPI)
     ├── README.md
-    ├── mcp-server/          ← FastMCP server (Streamable HTTP, Dockerfile cho Cloud Run)
+    ├── mcp-server/          ← FastMCP server chạy local qua Streamable HTTP
     └── mcp-client/          ← ADK agent dùng McpToolset
 ```
 
@@ -51,7 +51,7 @@ day26-mcp/
 | 03c — Versioning | Đọc metadata, liệt kê tool, gọi thành công cả v1 và v2 có forecast | [Ảnh terminal](screenshots/03c-versioning.png) |
 | 04 — ADK + WeatherAPI | Kiểm tra setup đạt; agent gọi MCP và trả thời tiết hiện tại, dự báo 3 ngày | [Setup](screenshots/04-verify-setup.png), [thời tiết](screenshots/04-adk-current.png), [dự báo](screenshots/04-adk-forecast.png) |
 
-Phần 01–03 sử dụng dữ liệu thời tiết giả lập; phần 04 gọi WeatherAPI. MCP chạy ở cổng 8085; ADK đã được kiểm tra ở cổng 8001 và sau đó ở cổng 8000 khi dừng server Auth. Chưa triển khai Cloud Run. Các yêu cầu minh chứng phần 03 và ADK đã đối chiếu đầy đủ với ảnh trong repo.
+Phần 01–03 sử dụng dữ liệu thời tiết giả lập; phần 04 gọi WeatherAPI. MCP chạy ở cổng 8085; ADK đã được kiểm tra ở cổng 8001 và sau đó ở cổng 8000 khi dừng server Auth. **Không thực hiện bonus deploy Cloud Run.** Bài nộp gồm code chạy local và 9 ảnh minh chứng phần bắt buộc; không có ảnh minh chứng cloud. Dockerfile được giữ làm cấu hình tham khảo, chưa kiểm tra build/deploy container.
 
 ### Chạy các ví dụ
 
@@ -60,19 +60,21 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
 # MCP demo (không cần API key)
-cd 02-mcp-basics && python weather_client.py
+(cd 02-mcp-basics && python weather_client.py)
 
 # Function Calling (cần Gemini API key)
 export GEMINI_API_KEY=...
-cd 01-function-calling && python weather_function_calling.py
+(cd 01-function-calling && python weather_function_calling.py)
 
 # Production — Auth (2 terminal)
-cd 03-production
-python auth_server.py              # terminal 1
-python auth_client.py              # terminal 2
+(cd 03-production && python auth_server.py)  # terminal 1, từ thư mục gốc
+(cd 03-production && python auth_client.py)  # terminal 2, từ thư mục gốc
 
 # Production — Tool Registry
-cd 03-production && python registry_client.py
+(cd 03-production && python registry_client.py)
+
+# Production — Versioning
+(cd 03-production && python versioned_client.py)
 ```
 
 ---
@@ -193,7 +195,7 @@ MCP server phục vụ qua **HTTP** cho nhiều client → cần xác thực. MC
 
 - Server: cấu hình `AuthSettings` + implement `TokenVerifier` protocol
 - Client: gửi header `Authorization: Bearer <token>` qua `create_mcp_http_client(headers=...)` của MCP SDK
-- Không có token → 401, token sai → 403, logic tool không biết gì về auth
+- Trong lần kiểm tra: thiếu hoặc sai token đều trả 401; logic tool không biết gì về auth
 
 | Tầng | Demo (stdio) | Production (HTTP) |
 |---|---|---|
