@@ -7,7 +7,7 @@ Ngày đối chiếu: 14/10/2026 (Asia/Saigon).
 | Nội dung | Tệp | Xác nhận |
 |---|---|---|
 | Function Calling | [01-function-calling.png](01-function-calling.png) | Model yêu cầu tool, app chạy cho Hà Nội/Đà Nẵng và trả lời cuối |
-| MCP Basics | [02-mcp-basics.png](02-mcp-basics.png) | `list_tools` và `call_tool` cho 3 thành phố |
+| MCP Basics | [02-mcp-client.png](02-mcp-client.png) | `list_tools` và `call_tool` cho 3 thành phố |
 | Authentication thành công | [03a-auth-ok.png](03a-auth-ok.png) | Token hợp lệ liệt kê và gọi được tool |
 | Authentication thất bại | [03a-auth-fail.png](03a-auth-fail.png) | Client đặt wrong-token; server từ chối HTTP 401 |
 | Registry | [03b-registry.png](03b-registry.png) | Tìm tag weather, chọn v2, gọi tool; tìm keyword forecast |

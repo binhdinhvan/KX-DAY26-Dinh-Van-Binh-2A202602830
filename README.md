@@ -45,7 +45,7 @@ day26-mcp/
 | Phần | Kết quả | Minh chứng |
 |---|---|---|
 | 01 — Function Calling | Gemini yêu cầu gọi tool cho Hà Nội và Đà Nẵng, app thực thi và model tổng hợp | [Ảnh terminal](screenshots/01-function-calling.png) |
-| 02 — MCP Basics | Khám phá tool và gọi thời tiết Hanoi, Danang, Haiphong | [Ảnh terminal](screenshots/02-mcp-basics.png) |
+| 02 — MCP Basics | Khám phá tool và gọi thời tiết Hanoi, Danang, Haiphong | [Ảnh terminal](screenshots/02-mcp-client.png) |
 | 03a — Authentication | Token hợp lệ gọi được tool; token sai bị từ chối HTTP 401 | [Thành công](screenshots/03a-auth-ok.png), [bị từ chối](screenshots/03a-auth-fail.png) |
 | 03b — Tool Registry | Tìm theo tag, chọn `get_weather_v2` v2.0.0 và gọi thành công; tìm theo keyword | [Ảnh terminal](screenshots/03b-registry.png) |
 | 03c — Versioning | Đọc metadata, liệt kê tool, gọi thành công cả v1 và v2 có forecast | [Ảnh terminal](screenshots/03c-versioning.png) |
